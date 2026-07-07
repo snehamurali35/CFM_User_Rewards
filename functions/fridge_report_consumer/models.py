@@ -10,6 +10,7 @@ class StatusReport(TypedDict):
     condition: str
     foodPercentage: int
     userId: NotRequired[str]
+    note: str
 
 class AwardResult(TypedDict):
     """Return type of get_award()."""
