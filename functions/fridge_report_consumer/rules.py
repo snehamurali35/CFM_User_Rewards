@@ -32,7 +32,7 @@ def parse_report(raw: str | None) -> StatusReport | None:
             condition=data["condition"],
             foodPercentage=int(data["foodPercentage"]),
             userId=data.get("userId", None), 
-            note=data["note"]
+            note=data.get("note", None)
         )
     except KeyError as e:
         raise ValueError(f"Validation Error: Missing mandatory field {e}") from e

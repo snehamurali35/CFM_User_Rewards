@@ -14,7 +14,6 @@ import logging
 import boto3
 
 from stats_queries import get_user_action_stats
-from fridge_info_queries import return_fridge_report_notes
 log = logging.getLogger(__name__)
 
 
@@ -55,21 +54,21 @@ def handler(event: dict[str, Any], context: Any) -> dict:
     }
 
 
-history_table_name: str = os.environ["USER_POINTS_HISTORY_TABLE"]
+# history_table_name: str = os.environ["USER_POINTS_HISTORY_TABLE"]
 
-def get_all_paginated_results(): 
+# def get_all_paginated_results(): 
 
-    items = return_fridge_report_notes(dynamodb_client, history_table_name)
-    if items is None:
-        log.info("No event stats found")
-        return {
-            "statusCode": 404,
-            "body": json.dumps({"error": "event stats not found"}),
-        }
+#     items = return_fridge_report_notes(dynamodb_client, history_table_name)
+#     if items is None:
+#         log.info("No fridge reports found")
+#         return {
+#             "statusCode": 404,
+#             "body": json.dumps({"error": "no fridge reports found"}),
+#         }
 
-    return {
-        "statusCode": 200,
-        "headers": {"Content-Type": "application/json"},
-        "body": json.dumps(items, default=str, "nextToken": encode_key([items["lastEvaluatedKey"]])),
-    }
+#     return {
+#         "statusCode": 200,
+#         "headers": {"Content-Type": "application/json"},
+#         "body": json.dumps(items, default=str, "nextToken": encode_key([items["lastEvaluatedKey"]])),
+#     }
 
