@@ -52,23 +52,3 @@ def handler(event: dict[str, Any], context: Any) -> dict:
         "headers": {"Content-Type": "application/json"},
         "body": json.dumps(item, default=str),
     }
-
-
-# history_table_name: str = os.environ["USER_POINTS_HISTORY_TABLE"]
-
-# def get_all_paginated_results(): 
-
-#     items = return_fridge_report_notes(dynamodb_client, history_table_name)
-#     if items is None:
-#         log.info("No fridge reports found")
-#         return {
-#             "statusCode": 404,
-#             "body": json.dumps({"error": "no fridge reports found"}),
-#         }
-
-#     return {
-#         "statusCode": 200,
-#         "headers": {"Content-Type": "application/json"},
-#         "body": json.dumps(items, default=str, "nextToken": encode_key([items["lastEvaluatedKey"]])),
-#     }
-

@@ -15,14 +15,7 @@ def _from_dynamo_item(item: dict) -> dict:
     }
 
 def return_fridge_report_notes(client, table_name: str,limit:int = 20, last_evaluated_key: dict| None = None) -> dict | None:
-
-    
-
-    """return fridge report notes in a dictionary for pagination .
-
-
-
-    
+    """return fridge report notes in a dictionary for pagination.
     Returns the deserialised item, or None if not found.
     """
     request = {
@@ -40,8 +33,13 @@ def return_fridge_report_notes(client, table_name: str,limit:int = 20, last_eval
     for item in response.get("Items", []): 
         deserializedItem = _from_dynamo_item(item)
         newReport = deserializedItem.get("newReport", {})
-        results.append({"fridgeId": newReport.get("fridgeId"), "epochTimeStamp": newReport.get("epochTimestamp"), "note": newReport.get("note")})
 
+        results.append({
+            "newReport": newReport,
+            "fridgeId": newReport.get("fridgeId"),
+            "epochTimeStamp": newReport.get("epochTimestamp"),
+            "note": newReport.get("note"),
+        })
     return {
         "items": results, 
         "lastEvaluatedKey": response.get("LastEvaluatedKey")
